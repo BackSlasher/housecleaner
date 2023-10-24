@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </head>
+    <body class="bg-light">
+
+<div class="container">
+  <main>
+    <div class="py-5 text-center">
+      <h2>חישוב דמי הבראה ודמי חופשה לעובד משק בית</h2>
+      <p class="lead">השימוש בטופס הוא על אחריותך בלבד</p>
+    </div>
+
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-4 order-md-last">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-primary">סכומים</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">דמי הבראה</h6>
+            </div>
+            <span id="healthDaySum2" class="text-muted">50</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">ימי חופשה</h6>
+            </div>
+            <span id="vacationSum2" class="text-muted">50</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>סה"כ</span>
+            <strong id="grandTotal">100</strong>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-7 col-lg-8">
+        <!--
+          שנת התחלת עבודה (כדי לדעת כמה שנים)
+          כמה שעות בביקור
+          שכר שעתי
+          ביקור כל כמה שבועות
+        -->
+        <form class="needs-validation" novalidate="">
+          <h4 class="mb-3">פרטים</h4>
+          <div class="row g-3">
+            <div class="col-sm-12">
+              <label for="yearStart" class="form-label">שנת התחלת עבודה</label>
+              <input type="text" class="form-control" id="yearStart" placeholder="2000" value="" required="">
+              <div class="invalid-feedback">
+                שנת התחלה חסרה
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="hoursPerVisit" class="form-label">כמה שעות בביקור</label>
+              <div class="input-group has-validation">
+                <input type="text" class="form-control" id="hoursPerVisit" placeholder="3" required="">
+              <div class="invalid-feedback">
+                  שעות בביקור חסרות
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <label for="hourlyRate" class="form-label">שכר שעתי</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">₪</span>
+                <input type="text" class="form-control" id="hourlyRate" placeholder="50" required="">
+              <div class="invalid-feedback">
+                  שכר שעתי חסר
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <label for="weeksPerVisit" class="form-label">ביקור כל כמה שבועות</label>
+              <input type="text" class="form-control" id="weeksPerVisit" placeholder="1" value="" required="">
+              <div class="invalid-feedback">
+                חסר
+              </div>
+            </div>
+          <button class="w-100 btn btn-primary btn-lg" type="submit">חישוב</button>
+          <hr class="my-4">
+
+          <div>
+              <h4 class="mb-3">הסבר</h4>
+              <div class="card mb-4 rounded-3 shadow-sm">
+              <div class="card-body">
+                טקסט טקסט
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+            <div>
+              <h4 class="mb-3">דמי הבראה</h4>
+              <div class="col-sm-12">
+                <label for="qualifiedHealthDays" class="form-label">ימי הבראה שזכאים להם</label>
+                <input type="text" class="form-control" id="qualifiedHealthDays" placeholder="0" value="" disabled="true">
+              </div>
+              <div class="col-sm-12">
+                <label for="fulltimePct" class="form-label">היקף משרה באחוזים</label>
+                <input type="text" class="form-control" id="fulltimePct" placeholder="1" value="" disabled="true">
+              </div>
+              <div class="col-sm-12">
+                <label for="healthDayCost" class="form-label">תעריף יום הבראה</label>
+                <input type="text" class="form-control" id="healthDayCost" placeholder="418" value="" disabled="true">
+              </div>
+              <div class="col-sm-12">
+                <label for="healthDayMath" class="form-label">חישוב דמי הבראה</label>
+                <input type="text" class="form-control" id="healthDayMath" dir="ltr" placeholder="418*0/1" value="" disabled="true">
+              </div>
+              <div class="col-sm-12">
+                <label for="healthDaySum" class="form-label">דמי הבראה</label>
+                <input type="text" class="form-control" id="healthDaySum" placeholder="418" value="" disabled="true">
+              </div>
+            </div>
+            <div>
+              <h4 class="mb-3">דמי חופשה</h4>
+              <div class="col-sm-12">
+                <label for="vacationDaysFulltime" class="form-label">זכאות לימי חופשה למשרה מלאה</label>
+                <input type="text" class="form-control" id="vacationDaysFulltime" placeholder="1" value="" disabled="true">
+              </div>
+              <div class="col-sm-12">
+                <label for="workDaysPerYear" class="form-label">ימי עבודה בשנה</label>
+                <input type="text" class="form-control" id="workDaysPerYear" placeholder="418" value="" disabled="true">
+              </div>
+              <div class="col-sm-12">
+                <label for="vacationDaysQualified" class="form-label">זכאות לימי חופשה</label>
+                <input type="text" class="form-control" id="vacationDaysQualified" placeholder="0" value="" disabled="true">
+              </div>
+              <div class="col-sm-12">
+                <label for="workdayWage" class="form-label">שכר ליום עבודה</label>
+                <input type="text" class="form-control" id="workdayWage" placeholder="418" value="" disabled="true">
+              </div>
+              <div class="col-sm-12">
+                <label for="vacationDayMath" class="form-label">חישוב דמי חופשה</label>
+                <input type="text" class="form-control" id="vacationDayMath" dir="ltr" placeholder="418*0/1" value="" disabled="true">
+              </div>
+              <div class="col-sm-12">
+                <label for="vacationSum" class="form-label">דמי חופשה</label>
+                <input type="text" class="form-control" id="vacationSum" placeholder="0" value="" disabled="true">
+              </div>
+            </div>
+          </div>
+          <hr class="my-4">
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1" dir="ltr">© <a href="https://backslasher.net">Backslasher (\)</a></p>
+  </footer>
+</div>
+
+
+    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+      <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+          'use strict'
+
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.querySelectorAll('.needs-validation')
+
+          // Loop over them and prevent submission
+          Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+              form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                  event.preventDefault()
+                  event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+              }, false)
+            })
+        })()
+
+      </script>
+      <script>
+        function getNum(elementId) {
+          return Number.parseInt(document.getElementById(elementId).value)
+        }
+
+        function setNum(elementId, value) {
+          document.getElementById(elementId).value = value;
+        }
+        
+        function setLabel(elementId, value) {
+          document.getElementById(elementId).textContent = value;
+        }
+
+        function healthDays(seniority) {
+          if (seniority<=1) {
+            return 5
+          } else if (seniority <=3) {
+            return 6
+          } else if (seniority <= 10) {
+            return 7
+          } else if (seniority <= 15) {
+            return 8
+          } else if (seniority <= 19) {
+            return 9
+          } else {
+            return 10
+          }
+        }
+
+        function vacationDays(seniority) {
+          if (seniority<=5) {
+            return 14;
+          } else if (seniority <= 6) {
+            return 16;
+          } else if (seniority <= 7) {
+            return 18;
+          } else if (seniority <= 8) {
+            return 19
+          } else if (seniority <= 9) {
+            return 20
+          } else if (seniority <= 10) {
+            return 21
+          } else if (seniority <= 11) {
+            return 22
+          } else if (seniority <= 12) {
+            return 23
+          } else {
+            return 24
+          }
+        }
+
+        function calculate() {
+          const yearStart = getNum('yearStart');
+          const hoursPerVisit = getNum('hoursPerVisit')
+          const hourlyRate = getNum('hourlyRate');
+          const weeksPerVisit = getNum('weeksPerVisit');
+
+          const currentYear = new Date().getFullYear();
+          const seniorityYears = currentYear - yearStart;
+
+          // Health
+          const qualifiedHealthDays = healthDays(seniorityYears);
+          setNum('qualifiedHealthDays', qualifiedHealthDays);
+
+          const fulltimePct = (hoursPerVisit*weeksPerVisit/4/42*100).toFixed(2);;
+          setNum('fulltimePct', fulltimePct);
+
+          const healthDayCost = 418;
+          setNum('healthDayCost', healthDayCost);
+
+          const healthDayMath = `${healthDayCost}*${qualifiedHealthDays}*(${fulltimePct}/100)`
+          setNum('healthDayMath', healthDayMath);
+
+          const healthDaySum = healthDayCost * qualifiedHealthDays * (fulltimePct/100);
+          setNum('healthDaySum', healthDaySum);
+          const healthDaySumRound = Math.ceil(healthDaySum);
+          setLabel('healthDaySum2', healthDaySumRound);
+          
+          // Vacation
+          const vacationDaysFulltime = vacationDays(seniorityYears);
+          setNum('vacationDaysFulltime', vacationDaysFulltime);
+
+          const workDaysPerYear = Math.round((365/7)/weeksPerVisit);
+          setNum('workDaysPerYear', workDaysPerYear);
+
+          const vacationDaysQualified = vacationDaysFulltime * (workDaysPerYear/200)
+          setNum('vacationDaysQualified', vacationDaysQualified);
+
+          const workdayWage = hourlyRate * hoursPerVisit;
+          setNum('workdayWage', workdayWage);
+
+          const vacationDayMath = `${workdayWage} * ${vacationDaysQualified}`
+          setNum('vacationDayMath', vacationDayMath);
+
+          const vacationSum = workdayWage * vacationDaysQualified;
+          setNum('vacationSum', vacationSum);
+          vacationSumRound = Math.round(vacationSum);
+          setLabel('vacationSum2', vacationSumRound);
+
+
+          // Total
+          const grandTotal = healthDaySumRound + vacationSumRound;
+          setLabel('grandTotal', grandTotal);
+
+
+        }
+        (function() {
+          'use strict'
+          var forms = document.querySelectorAll('.needs-validation')
+          Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+              form.addEventListener('submit', function (event) {
+                  calculate();
+                  event.preventDefault()
+                  event.stopPropagation()
+              }, false)
+            })
+
+
+
+        })()
+      </script>
+
+
+
+
+
+</body></html>
