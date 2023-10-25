@@ -98,11 +98,15 @@
             <div>
               <h4 class="mb-3">דמי הבראה</h4>
               <div class="col-sm-12">
-                <label for="qualifiedHealthDays" class="form-label">ימי הבראה שזכאים להם</label>
+                <label for="qualifiedHealthDays" class="form-label">ימי הבראה למשרה מלאה</label>
                 <input type="text" class="form-control" id="qualifiedHealthDays" placeholder="0" value="" disabled="true">
               </div>
               <div class="col-sm-12">
-                <label for="fulltimePct" class="form-label">היקף משרה באחוזים</label>
+                <label for="weeklyHours" class="form-label">שעות שבועיות</label>
+                <input type="text" class="form-control" id="weeklyHours" placeholder="0" value="" disabled="true">
+              </div>
+              <div class="col-sm-12">
+                <label for="fulltimePct" class="form-label">היקף משרה באחוזים (מתוך 42 שעות שבועיות)</label>
                 <input type="text" class="form-control" id="fulltimePct" placeholder="1" value="" disabled="true">
               </div>
               <div class="col-sm-12">
@@ -185,7 +189,7 @@
       </script>
       <script>
         function getNum(elementId) {
-          return Number.parseInt(document.getElementById(elementId).value)
+          return Number.parseFloat(document.getElementById(elementId).value)
         }
 
         function setNum(elementId, value) {
@@ -247,7 +251,10 @@
           const qualifiedHealthDays = healthDays(seniorityYears);
           setNum('qualifiedHealthDays', qualifiedHealthDays);
 
-          const fulltimePct = (hoursPerVisit*weeksPerVisit/4/42*100).toFixed(2);;
+          const weeklyHours = (hoursPerVisit/weeksPerVisit).toFixed(2);
+          setNum('weeklyHours',weeklyHours);
+
+          const fulltimePct = (weeklyHours/42*100).toFixed(2);;
           setNum('fulltimePct', fulltimePct);
 
           const healthDayCost = 418;
@@ -268,7 +275,7 @@
           const workDaysPerYear = Math.round((365/7)/weeksPerVisit);
           setNum('workDaysPerYear', workDaysPerYear);
 
-          const vacationDaysQualified = vacationDaysFulltime * (workDaysPerYear/200)
+          const vacationDaysQualified = vacationDaysFulltime * (workDaysPerYear/200).toFixed(2);
           setNum('vacationDaysQualified', vacationDaysQualified);
 
           const workdayWage = hourlyRate * hoursPerVisit;
